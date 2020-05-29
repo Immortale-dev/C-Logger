@@ -183,4 +183,3 @@ void logger::Log::write_log(std::string str)
 	std::ofstream& st = get_stream(path);
 	st << str;
 }
-

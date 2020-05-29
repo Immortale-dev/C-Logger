@@ -46,7 +46,7 @@ namespace logger{
             int allowance;
 			std::string path;
             std::string name;
-            std::string format = "{\"name\":\"${name}\", \"thread\":\"${thread}\", \"date\":\"${date}\", \"type\":\"${type}\", \"message\":\"${message}\"}\n";
+            std::string format = "{\"name\":\"${name}\",\"thread\":\"${thread}\",\"date\":\"${date}\",\"type\":\"${type}\",\"message\":\"${message}\"}\n";
     };
 }
 

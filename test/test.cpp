@@ -11,7 +11,7 @@ int main()
 	lgr.warning("WRNG");
 
 	for(int i=0;i<100;i++){
-		lgr.error("str_error "+std::to_string(i));
+		lgr.error("str_error фыв"+std::to_string(i));
 	}
 	
 }
