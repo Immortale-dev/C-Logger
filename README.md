@@ -48,9 +48,9 @@ The `main.log` file will be created at the root folder. `name` is not specified.
 	```
 
 ## Public properties:
-- `int logger::L_ERROR` - corresponds to the `error` log record type
-- `int logger::L_WARNING` - corresponds to the `warning` log record type
-- `int logger::L_INFO` - corresponds to the `info` log record type
+- `const int logger::L_ERROR = 1` - corresponds to the `error` log record type
+- `const int logger::L_WARNING = 2` - corresponds to the `warning` log record type
+- `const int logger::L_INFO = 4` - corresponds to the `info` log record type
 
 ## Tips and tricks:
 - **record format:** Default record format is `{"name":"${name}","thread":"${thread}","date":"${date}","type":"${type}","message":"${message}"}\n;`
