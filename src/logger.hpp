@@ -18,7 +18,7 @@ namespace logger{
     extern std::unordered_map<std::string, int> _fds_cnts;
     extern std::mutex m;
     
-    enum class T{ ERROR=1, WARNING=2, INFO=4 };
+    extern const int L_ERROR, L_WARNING, L_INFO;
     
     class Log{
         
@@ -27,15 +27,16 @@ namespace logger{
             Log(std::string path, int allowance=7);
             Log(std::string path, std::string name, int allowance=7);
             virtual ~Log();
-            virtual void log(T type, std::string str);
+            virtual void log(int type, std::string str);
             void error(std::string str);
             void warning(std::string str);
             void info(std::string str);
+            void flush();
         
         private:
 			virtual void create_path(std::string path);
-			virtual bool is_allowed(T type);
-			virtual std::string form_log_string(T type, std::string str);
+			virtual bool is_allowed(int type);
+			virtual std::string form_log_string(int type, std::string str);
 			virtual std::string escape(std::string);
             virtual std::string get_time_str();
             void open_stream(std::string path);

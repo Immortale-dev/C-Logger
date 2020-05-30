@@ -4,6 +4,7 @@ namespace logger{
 	std::unordered_map<std::string, std::ofstream> _fds;
     std::unordered_map<std::string, int> _fds_cnts;
 	std::mutex m;
+	const int L_ERROR=1, L_WARNING=2, L_INFO=4;
 }
 
 logger::Log::Log() : allowance(7)
@@ -29,7 +30,7 @@ logger::Log::~Log()
 	close_stream(path);
 }
 
-void logger::Log::log(T type, std::string str)
+void logger::Log::log(int type, std::string str)
 {
 	if(is_allowed(type)){
 		write_log(form_log_string(type,str));
@@ -38,23 +39,29 @@ void logger::Log::log(T type, std::string str)
 
 void logger::Log::error(std::string str)
 {
-	if(is_allowed(T::ERROR)){
-		write_log(form_log_string(T::ERROR,str));
+	if(is_allowed(L_ERROR)){
+		write_log(form_log_string(L_ERROR,str));
 	}
 }
 
 void logger::Log::warning(std::string str)
 {
-	if(is_allowed(T::WARNING)){
-		write_log(form_log_string(T::WARNING,str));
+	if(is_allowed(L_WARNING)){
+		write_log(form_log_string(L_WARNING,str));
 	}
 }
 
 void logger::Log::info(std::string str)
 {
-	if(is_allowed(T::INFO)){
-		write_log(form_log_string(T::INFO,str));
+	if(is_allowed(L_INFO)){
+		write_log(form_log_string(L_INFO,str));
 	}
+}
+
+void logger::Log::flush()
+{
+	std::ofstream& st = get_stream(path);
+	st.flush();
 }
 
 void logger::Log::create_path(std::string str)
@@ -62,24 +69,24 @@ void logger::Log::create_path(std::string str)
 	//TODO: create nested folders
 }
 
-bool logger::Log::is_allowed(T type)
+bool logger::Log::is_allowed(int type)
 {
-	return (allowance & (int)type);
+	return (allowance & type);
 }
 
-std::string logger::Log::form_log_string(T type, std::string message)
+std::string logger::Log::form_log_string(int type, std::string message)
 {
 	std::string ltype, res, date, thread;
 	
 	// Define text type
 	switch(type){
-		case T::ERROR:
+		case L_ERROR:
 			ltype = "error";
 			break;
-		case T::WARNING:
+		case L_WARNING:
 			ltype = "warning";
 			break;
-		case T::INFO:
+		case L_INFO:
 			ltype = "info";
 			break;
 	}
@@ -181,5 +188,6 @@ std::ofstream& logger::Log::get_stream(std::string path)
 void logger::Log::write_log(std::string str)
 {
 	std::ofstream& st = get_stream(path);
+	std::lock_guard<std::mutex> lock(m);
 	st << str;
 }
