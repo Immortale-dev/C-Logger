@@ -89,6 +89,13 @@ DESCRIBE("Logger", {
 		});
 	});
 	
+	DESCRIBE("After everything is destructed", {
+		IT("All streams should be closed", {
+			EXPECT(logger::_fds.size()).to_be(0);
+			EXPECT(logger::_fds_cnts.size()).to_be(0);
+		});
+	});
+	
 	AFTER_ALL({
 		delete_file("./main.log");
 		delete_file("./tmp/ie.log");

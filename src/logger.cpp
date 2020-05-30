@@ -7,7 +7,7 @@ namespace logger{
 	const int L_ERROR=1, L_WARNING=2, L_INFO=4;
 }
 
-logger::Log::Log() : allowance(7)
+logger::Log::Log(int allowance) : allowance(allowance)
 {
 	path = "./main.log";
 	name = "";

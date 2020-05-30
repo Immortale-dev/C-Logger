@@ -23,7 +23,7 @@ namespace logger{
     class Log{
         
         public:
-            Log();
+            Log(int allowance=7);
             Log(std::string path, int allowance=7);
             Log(std::string path, std::string name, int allowance=7);
             virtual ~Log();
