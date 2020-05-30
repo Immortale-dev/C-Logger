@@ -1,6 +1,6 @@
 
 # C++ Logger
-Simple and lightweight logger for c++ projects that uses namespace `logger`
+Simple **threading safe** and lightweight logger for c++ projects that uses namespace `logger`
 
 ## How to use
 Initialize `Log` instance and call for the log methods.
