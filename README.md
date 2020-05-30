@@ -4,6 +4,7 @@ Simple and lightweight logger for c++ projects that uses namespace `logger`
 
 ## How to use
 Initialize `Log` instance and call for the log methods.
+
 ***Example:*** 
 ```C++
 logger::Log log;
@@ -13,11 +14,13 @@ log.error("Something is going wrong...");
 - **std::string path** - the path to the file the data will be append to
 - **std::string name** - name you specify for your purposes (to recognize different modules that could write to the same file location for example)
 - **int allowance** - *(optional)* number that specify which types of logs records will be wrote to the log file. `0` bit of this number  responsible for the `error` logs, `1`'st bit responsible for the `warning` records and `2`'nd but responsible for the `info` records.
+	
 	***Example:*** 
 	```C++
 	logger::Log log(5); // (101) Will pass only Error and Info records
 	```
 	There is also local variables that corresponds to each log record type available. The next expression works the same as previous one
+	
 	***Example:***
 	```C++
 	logger::Log log(logger::L_ERROR | logger::L_INFO); // L_WARNING for warnings
@@ -35,6 +38,7 @@ The `main.log` file will be created at the root folder. `name` is not specified.
 - `void info(std::string message)` - Writes the info record to the log file
 - `void log(int type, std::string message)` - Write the corresponded record type to the log file.
 - `void flush()` - flush the buffer for the owning log file
+
 	***Example:***
 	```C++
 	logger::Log log;
@@ -49,7 +53,7 @@ The `main.log` file will be created at the root folder. `name` is not specified.
 - `int logger::L_INFO` - corresponds to the `info` log record type
 
 ## Tips and tricks:
-- **record format:** Default record format is `"{"name":"${name}","thread":"${thread}","date":"${date}","type":"${type}","message":"${message}"}\n";`
+- **record format:** Default record format is `{"name":"${name}","thread":"${thread}","date":"${date}","type":"${type}","message":"${message}"}\n;`
 	- `${name}` will be replaced with the `name` parameter you provided to the `logger::Log` constructor
 	- `${date}` will be replaced with the date in ISO format in UTC timezome with microseconds (`2020-05-30T09:53:15.535422Z`)
 	- `${thread}` will be replaced with the `std::this_thread::get_id()`
@@ -60,6 +64,7 @@ The `main.log` file will be created at the root folder. `name` is not specified.
 	There is a bunch of other `virtual private` methods you may want to modify to adjust the logger for your preferences.
 
 - **One log file:** If you would like to mix logs from different modules, you could define `Log` instance with the same `path` parameter, so they both will use shared file stream to write log records.
+
 	***Example:***
 	```C++
 	// module1.cpp
