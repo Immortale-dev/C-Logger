@@ -13,13 +13,7 @@
 #include <iostream>
 	
 namespace logger{
-	
-	extern std::unordered_map<std::string, std::ofstream> _fds;
-	extern std::unordered_map<std::string, int> _fds_cnts;
-	extern std::mutex m;
-	
-	extern const int L_ERROR, L_WARNING, L_INFO;
-	
+    
 	class Log{
 		
 		public:
@@ -32,6 +26,11 @@ namespace logger{
 			void warning(std::string str);
 			void info(std::string str);
 			void flush();
+            
+            inline static const int L_ERROR=1, L_WARNING=2, L_INFO=4;
+            inline static std::unordered_map<std::string, std::ofstream> _fds;
+            inline static std::unordered_map<std::string, int> _fds_cnts;
+            inline static std::mutex m;
 		
 		private:
 			virtual void create_path(std::string path);

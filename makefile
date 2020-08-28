@@ -1,7 +1,7 @@
 .PHONY: all generate_o generate_t dist
 
 CC=g++
-CFLAGS=-c -Wall -x c++
+CFLAGS=-c -Wall -x c++ -std=c++17
 LDFLAGS=
 SRCPATH:=src/
 SRCS:=$(wildcard $(SRCPATH)*.cpp)
@@ -16,7 +16,7 @@ generate_o: ${OBJS}
 
 generate_t: 
 	${CC} ${CFLAGS} ${INCL} -o test/test.o test/test.cpp
-	${CC} ${INCL} -o test.exe test/test.o ${OBJS}
+	${CC} ${INCL} -o test.exe test/test.o ${OBJS} -pthread
 	
 dist: generate_o
 

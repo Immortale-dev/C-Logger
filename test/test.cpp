@@ -64,7 +64,7 @@ DESCRIBE("Logger", {
 	});
 	
 	DESCRIBE("Can initialize with spefifiing parameters", {
-		logger::Log log_ie("./tmp/ie.log", "infos_and_errors", logger::L_ERROR | logger::L_INFO);
+		logger::Log log_ie("./tmp/ie.log", "infos_and_errors", logger::Log::L_ERROR | logger::Log::L_INFO);
 		
 		DESCRIBE("AND we can put log records to the file", {
 			BEFORE_ALL({
@@ -91,8 +91,8 @@ DESCRIBE("Logger", {
 	
 	DESCRIBE("After everything is destructed", {
 		IT("All streams should be closed", {
-			EXPECT(logger::_fds.size()).to_be(0);
-			EXPECT(logger::_fds_cnts.size()).to_be(0);
+			EXPECT(logger::Log::_fds.size()).to_be(0);
+			EXPECT(logger::Log::_fds_cnts.size()).to_be(0);
 		});
 	});
 	

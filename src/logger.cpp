@@ -1,12 +1,5 @@
 #include "logger.hpp"
 
-namespace logger{
-	std::unordered_map<std::string, std::ofstream> _fds;
-	std::unordered_map<std::string, int> _fds_cnts;
-	std::mutex m;
-	const int L_ERROR=1, L_WARNING=2, L_INFO=4;
-}
-
 logger::Log::Log(int allowance) : allowance(allowance)
 {
 	path = "./main.log";
@@ -163,7 +156,7 @@ std::string logger::Log::escape(std::string str)
 
 void logger::Log::open_stream(std::string path)
 {
-	std::lock_guard<std::mutex> lock(m);
+	std::lock_guard<std::mutex> lock(Log::m);
 	if(!_fds.count(path)){
 		_fds[path] = std::move(std::ofstream(path, std::ios::app));
 		_fds_cnts[path] = 1;
